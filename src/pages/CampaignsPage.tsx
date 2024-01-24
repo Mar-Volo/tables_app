@@ -19,7 +19,7 @@ const CampaignsPage: React.FC = () => {
   return (
     <main>
       <Container className="container">
-      <h1>Campaigns for Profile ID: {selectedProfile?.profileId}</h1>
+      <h1>Campaigns for profile ID: {selectedProfile?.profileId}</h1>
       <Link className="backLink" to="/profiles">Back</Link>
       {selectedProfile && <CampaignsTable campaigns={selectedCampaigns} />}
       </Container>

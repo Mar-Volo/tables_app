@@ -35,7 +35,7 @@ import AccountsTable from "../components/AccountsTable/AccountsTable";
 import Container from "../components/Container/Container";
 
 const AccountsPage: React.FC = () => {
-  const { accounts, setAccounts, setSelectedAccount } = useAccountsStore(
+  const { accounts, setAccounts, setSelectedAccount} = useAccountsStore(
     (state) => ({
       accounts: state.accounts,
       setAccounts: state.setAccounts,
@@ -58,7 +58,7 @@ const AccountsPage: React.FC = () => {
     <main>
       {accounts && ( 
        
-          <Container className="container accounts__container"><h1 className="accounts__title">Accounts App</h1>
+          <Container className="container accounts__container"><h1 className="accounts__title">Accounts</h1>
           <AccountsTable accounts={accounts} handleClick={handleAccountClick} />
           </Container>
         

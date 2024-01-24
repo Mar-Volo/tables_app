@@ -32,7 +32,7 @@ const ProfilePage: React.FC = () => {
   return (
     <main>
 <Container className="container">
-<h1 className="profiles__title">Profiles for Account ID: {selectedAccount?.accountId}</h1>
+<h1 className="profiles__title">Profiles for account ID: {selectedAccount?.accountId}</h1>
       <Link className="backLink" to="/accounts">Back</Link>
       {selectedAccount && (
         <ProfileTable

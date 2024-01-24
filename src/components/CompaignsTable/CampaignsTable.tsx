@@ -21,7 +21,7 @@ const CampaignsTable: React.FC<CampaignsTableProps> = ({ campaigns }) => {
           <tr key={campaign.campaignId}>
             <td>{campaign.campaignId}</td>
             <td>{campaign.clicks}</td>
-            <td>{campaign.cost}</td>
+            <td>{Math.round(campaign.cost) + "$"}</td>
             <td>{campaign.date}</td>
           </tr>
         ))}

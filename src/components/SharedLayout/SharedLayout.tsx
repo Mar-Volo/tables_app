@@ -8,12 +8,10 @@ import Footer from "../Footer/Footer";
 import useAccountsStore from "../../store/accountsStore";
 
 const SharedLayout: React.FC = () => {
-  const { selectedAccount, selectedProfile } = useAccountsStore(
-    (state) => ({
-      selectedAccount: state.selectedAccount,
-      selectedProfile: state.selectedProfile,
-    })
-  );
+  const { selectedAccount, selectedProfile } = useAccountsStore((state) => ({
+    selectedAccount: state.selectedAccount,
+    selectedProfile: state.selectedProfile,
+  }));
 
   const currentYear = new Date().getFullYear();
 
@@ -48,18 +46,34 @@ const SharedLayout: React.FC = () => {
               width="100"
               color="rgb(33 79 151)"
               ariaLabel="three-circles-loading"
-              wrapperStyle={{ display: 'flex', justifyContent: 'center', alignIems: 'center' }}
+              wrapperStyle={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)", 
+              }}
               wrapperClass=""
             />
+            <Footer>
+              <Container className="container footer__container">
+                <span className="footer__element">&copy; {currentYear}</span>
+                <span className="footer__element">All rights reserved</span>
+                <span className="footer__element">
+                  Developed by Volodymyr Marchenko
+                </span>
+              </Container>
+            </Footer>
           </Container>
         }
       >
         <Outlet />
         <Footer>
           <Container className="container footer__container">
-          <span className="footer__element">&copy; {currentYear}</span>
-          <span className="footer__element">All rights reserved</span>
-          <span className="footer__element">Developed by Volodymyr Marchenko</span>
+            <span className="footer__element">&copy; {currentYear}</span>
+            <span className="footer__element">All rights reserved</span>
+            <span className="footer__element">
+              Developed by Volodymyr Marchenko
+            </span>
           </Container>
         </Footer>
       </Suspense>
