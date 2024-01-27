@@ -15,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/profiles" element={<ProfilePage />} />
         <Route path="/campaigns" element={<CampaignsPage />} />
+        <Route path="*" element={<Home />} />
       </Route>
     </Routes>
   );

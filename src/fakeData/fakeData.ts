@@ -106,32 +106,29 @@ const generateRandomCampaignsForProfile = (): Campaign[] => {
 const startDate = "2020-01-01";
 const endDate = "2022-12-31";
 
-const localStorageKey = "fakeAccountsData";
+export const accountsStorageKey = "fakeAccountsData";
 
-export const accountsData = (): Account[] => {
-  // Перевірка, чи вже є дані у локальному сховищі
-  const storedData = localStorage.getItem(localStorageKey);
+export const saveAccountsDataToLocalStorage = (): void => {
+  const storedData = localStorage.getItem(accountsStorageKey);
 
-  if (storedData) {
-    // Якщо є, повертаємо розпаковані дані
-    return JSON.parse(storedData);
+  if (!storedData) {
+    // Якщо немає існуючих даних, генеруємо нові
+    const accountsArr: Account[] = [];
+    for (let i = 0; i < 20; i++) {
+      accountsArr[i] = {
+        accountId: shortid.generate(),
+        email: generateRandomEmail(),
+        authToken: generateFakeToken(),
+        creationDate: generateRandomDate(startDate, endDate),
+        profiles: generateRandomProfilesForAccount(),
+      };
+    }
+
+    // Зберігаємо дані у локальному сховищі
+    localStorage.setItem(accountsStorageKey, JSON.stringify(accountsArr));
   }
-
-  // Якщо немає, генеруємо нові дані
-  const accountsArr: Account[] = [];
-
-  for (let i = 0; i < 20; i++) {
-    accountsArr[i] = {
-      accountId: shortid.generate(),
-      email: generateRandomEmail(),
-      authToken: generateFakeToken(),
-      creationDate: generateRandomDate(startDate, endDate),
-      profiles: generateRandomProfilesForAccount(),
-    };
-  }
-
-  // Зберігаємо дані у локальному сховищі
-  localStorage.setItem(localStorageKey, JSON.stringify(accountsArr));
-
-  return accountsArr;
+  // Якщо є існуючі дані, нічого не робимо
 };
+
+// Викликаємо функцію для збереження даних в localStorage
+saveAccountsDataToLocalStorage();

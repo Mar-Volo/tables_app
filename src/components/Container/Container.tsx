@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface ContainerProps {
   children: ReactNode;
-  className?: string; 
+  className?: string;
 }
 
 const Container: React.FC<ContainerProps> = ({ children, className }) => {

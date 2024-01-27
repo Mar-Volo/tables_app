@@ -1,67 +1,51 @@
-// import { useState, useEffect } from "react";
-// import { accountsData } from "../fakeData/fakeData";
-// import AccountsTable from '../components/AccountsTable/AccountsTable';
-// import { Account } from "../interfaces/types";
-
-// const AccountsPage: React.FC = () => {
-//     // Стейт для зберігання облікових записів та вибраного профайлу
-//     const [accounts, setAccounts] = useState<Account[]>([]);
-//     const [selectedAccountId, setSelectedAccountId] = useState<string | null>(
-//         null
-//       );
-
-//        // Ефект для завантаження облікових записів при монтажі компонента
-//       useEffect(() => {
-//         setAccounts(accountsData());
-//       }, []);
-//       const handleAccountClick = (accountId: string) => {
-//         setSelectedAccountId(accountId);
-//       };
-
-//   return (
-//     <div>
-//         <h1>Accounts App</h1>
-//         <AccountsTable accounts={accounts} handleClick={handleAccountClick}/>
-//     </div>
-//   );
-// };
-
-// export default AccountsPage;
-
-import { useEffect } from "react";
-import useAccountsStore from "../store/accountsStore";
-import { accountsData } from "../fakeData/fakeData";
+import { useState, useEffect } from "react";
 import AccountsTable from "../components/AccountsTable/AccountsTable";
 import Container from "../components/Container/Container";
+import { Account } from "../interfaces/types";
+import { accountsStorageKey } from "../fakeData/fakeData";
+import { campaignsStorageKey } from "./ProfilesPage";
+
+const getAccountsData = () => {
+  const storedData = localStorage.getItem(accountsStorageKey);
+  return storedData ? JSON.parse(storedData) : [];
+};
+export const getCampaignsData = () => {
+  const storedData = localStorage.getItem(campaignsStorageKey);
+  return storedData ? JSON.parse(storedData).campaigns : [];
+};
+export const profilesStorageKey = "fakeProfaileData";
+export const accountIdStorageKey = "fakeAccountIdData";
 
 const AccountsPage: React.FC = () => {
-  const { accounts, setAccounts, setSelectedAccount} = useAccountsStore(
-    (state) => ({
-      accounts: state.accounts,
-      setAccounts: state.setAccounts,
-      selectedAccount: state.selectedAccount,
-      setSelectedAccount: state.setSelectedAccount,
-    })
-  );
+  const [accounts, setAccounts] = useState<Account[]>([]);
 
   useEffect(() => {
-    setAccounts(accountsData());
-  }, [setAccounts]);
+    const accountsData = getAccountsData();
+    setAccounts(accountsData);
+  }, []);
 
   const handleAccountClick = (accountId: string) => {
     const selected = accounts.find((item) => item.accountId === accountId);
 
-    setSelectedAccount(selected || null);
+    if (selected) {
+      console.log(selected.profiles);
+      localStorage.setItem(
+        profilesStorageKey,
+        JSON.stringify(selected.profiles)
+      );
+      localStorage.setItem(accountIdStorageKey, JSON.stringify(accountId));
+    } else {
+      console.error(`Account with ID ${accountId} not found`);
+    }
   };
 
   return (
     <main>
-      {accounts && ( 
-       
-          <Container className="container accounts__container"><h1 className="accounts__title">Accounts</h1>
+      {accounts.length > 0 && (
+        <Container className="container accounts__container">
+          <h1 className="accounts__title">Accounts</h1>
           <AccountsTable accounts={accounts} handleClick={handleAccountClick} />
-          </Container>
-        
+        </Container>
       )}
     </main>
   );

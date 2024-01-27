@@ -29,7 +29,7 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 main {
   padding: 30px 0;
@@ -37,6 +37,7 @@ main {
 .home__main {
   height: 100%;
 }
+
 button {
   border: none;
   outline: none;
@@ -124,7 +125,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: inherit;
+  height: 100%;
 }
 h1 {
   text-align: center;
@@ -153,6 +154,7 @@ td {
 }
 .backLink {
   width: 100px;
+  font-weight: 600;
   color: rgb(33 79 151);
   display: flex;
   align-items: center;

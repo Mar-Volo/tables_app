@@ -12,7 +12,7 @@ const AccountsTable: React.FC<AccountsTableProps> = ({
   handleClick,
 }) => {
   return (
-    <table className="table table-hover accounts__table table-sm">
+    <table className="table table-hover accounts__table">
       <thead>
         <tr>
           <th>Account ID</th>

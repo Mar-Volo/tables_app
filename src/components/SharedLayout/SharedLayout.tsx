@@ -5,16 +5,9 @@ import { ThreeCircles } from "react-loader-spinner";
 import Container from "../Container/Container";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import useAccountsStore from "../../store/accountsStore";
 
 const SharedLayout: React.FC = () => {
-  const { selectedAccount, selectedProfile } = useAccountsStore((state) => ({
-    selectedAccount: state.selectedAccount,
-    selectedProfile: state.selectedProfile,
-  }));
-
   const currentYear = new Date().getFullYear();
-
   return (
     <>
       <Header>
@@ -25,16 +18,14 @@ const SharedLayout: React.FC = () => {
           <NavLink className="nav_link" to="/accounts">
             Accounts
           </NavLink>
-          {selectedAccount && (
-            <NavLink className="nav_link" to="/profiles">
-              Profiles
-            </NavLink>
-          )}
-          {selectedProfile && (
-            <NavLink className="nav_link" to="/campaigns">
-              Campaigns
-            </NavLink>
-          )}
+
+          <NavLink className="nav_link" to="/profiles">
+            Profiles
+          </NavLink>
+
+          <NavLink className="nav_link" to="/campaigns">
+            Campaigns
+          </NavLink>
         </Container>
       </Header>
       <Suspense
@@ -50,7 +41,7 @@ const SharedLayout: React.FC = () => {
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -50%)", 
+                transform: "translate(-50%, -50%)",
               }}
               wrapperClass=""
             />
