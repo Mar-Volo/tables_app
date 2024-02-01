@@ -19,32 +19,34 @@ const SharedLayout: React.FC = () => {
             Accounts
           </NavLink>
 
-          <NavLink className="nav_link" to="/profiles">
+          {/* <NavLink className="nav_link" to="/accounts/:accountId">
             Profiles
           </NavLink>
 
-          <NavLink className="nav_link" to="/campaigns">
+          <NavLink className="nav_link" to="/accounts/:accountId/:profileId">
             Campaigns
-          </NavLink>
+          </NavLink> */}
         </Container>
       </Header>
       <Suspense
         fallback={
-          <Container className="container loader__container">
-            <ThreeCircles
-              visible={true}
-              height="100%"
-              width="100"
-              color="rgb(33 79 151)"
-              ariaLabel="three-circles-loading"
-              wrapperStyle={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-              wrapperClass=""
-            />
+          <>
+            <Container className="container loader__container">
+              <ThreeCircles
+                visible={true}
+                height="100%"
+                width="100"
+                color="rgb(33 79 151)"
+                ariaLabel="three-circles-loading"
+                wrapperStyle={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+                wrapperClass=""
+              />
+            </Container>
             <Footer>
               <Container className="container footer__container">
                 <span className="footer__element">&copy; {currentYear}</span>
@@ -54,7 +56,7 @@ const SharedLayout: React.FC = () => {
                 </span>
               </Container>
             </Footer>
-          </Container>
+          </>
         }
       >
         <Outlet />

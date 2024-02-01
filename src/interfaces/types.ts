@@ -3,19 +3,23 @@ export interface Account {
   email: string;
   authToken: string;
   creationDate: string;
-  profiles: Profile[];
 }
 
 export interface Profile {
+  account_id: string,
   profileId: string;
   country: string;
   marketplace: string;
-  campaigns: Campaign[];
 }
 
+
 export interface Campaign {
+  account_id: string,
+  profile_id: string,
   campaignId: string;
   clicks: number;
   cost: number;
   date: string;
 }
+
+

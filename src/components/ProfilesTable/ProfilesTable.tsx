@@ -4,12 +4,10 @@ import { Profile } from "../../interfaces/types";
 
 interface ProfileTableProps {
   profiles: Profile[];
-  handleClick: (profileId: string) => void;
 }
 
 const ProfileTable: React.FC<ProfileTableProps> = ({
-  profiles,
-  handleClick,
+  profiles
 }) => {
   return (
     <table className="table profiles__table table-hover">
@@ -24,20 +22,19 @@ const ProfileTable: React.FC<ProfileTableProps> = ({
         {profiles.map((profile) => (
           <tr
             key={profile.profileId}
-            onClick={() => handleClick(profile.profileId)}
           >
             <td>
-              <Link to="/campaigns" className="table__link">
+              <Link to={profile.profileId} className="table__link">
                 {profile.profileId}
               </Link>
             </td>
             <td>
-              <Link to="/campaigns" className="table__link">
+              <Link to={profile.profileId} className="table__link">
                 {profile.country}
               </Link>
             </td>
             <td>
-              <Link to="/campaigns" className="table__link">
+              <Link to={profile.profileId} className="table__link">
                 {profile.marketplace}
               </Link>
             </td>
