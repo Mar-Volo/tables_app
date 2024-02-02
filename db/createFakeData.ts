@@ -1,6 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as shortid from 'shortid';
+import writeDataToFile from './writeDataToFile';
 import {
   Campaign,
   Profile,
@@ -15,17 +14,6 @@ const startDate = "2020-01-01";
 const endDate = "2022-12-31";
 const NUM_FAKE_ACCOUNTS = 60;
 
-const dbFilePath = path.join(__dirname, 'db.json');
-
-const writeDataToFile = (data: any) => {
-  fs.writeFileSync(dbFilePath, JSON.stringify(data, null, 2), 'utf8');
-};
-
-writeDataToFile({
-  accounts: [],
-  profiles: [],
-  campaigns: []
-});
 
 const generateFakeToken = (): string => {
   const characters =
@@ -144,14 +132,29 @@ const generateAccount = (profilesCount: number, campaignsCount: number): void =>
   }
 };
 
-for (let i = 0; i < NUM_FAKE_ACCOUNTS; i++) {
-  generateAccount(profilesCount(), campaignsCount());
-}
+const generateAndWriteData = async () => {
+  for (let i = 0; i < NUM_FAKE_ACCOUNTS; i++) {
+    generateAccount(profilesCount(), campaignsCount());
+  }
 
-writeDataToFile({ accounts, profiles, campaigns });
+  const dbFilePath = './db/db.json';
+  const dataToWrite = {
+    accounts,
+    profiles,
+    campaigns,
+  };
 
-export {accounts, profiles, campaigns};
+  await writeDataToFile(dbFilePath, dataToWrite);
+};
 
+generateAndWriteData();
+
+
+
+
+
+  // "generate": "tsc ./db/createFakeData.ts && node ./db/createFakeData.cjs && json-server ./db/db.json"
+  // "serve": "concurrently \"json-server ./db/db.json\" \"vite preview\"",
 
 
 
