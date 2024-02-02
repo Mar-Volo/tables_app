@@ -1,5 +1,7 @@
+import * as fs from 'fs/promises';
+import * as path from 'path';
 import * as shortid from 'shortid';
-import writeDataToFile from './writeDataToFile';
+
 import {
   Campaign,
   Profile,
@@ -139,12 +141,34 @@ const generateAndWriteData = async () => {
 
   const dbFilePath = './db/db.json';
   const dataToWrite = {
-    accounts,
-    profiles,
-    campaigns,
+    accounts: accounts,
+    profiles: profiles,
+    campaigns: campaigns
   };
 
   await writeDataToFile(dbFilePath, dataToWrite);
+};
+
+const writeDataToFile = async (filePath: string, data: any): Promise<void> => {
+  try {
+    if (typeof data === 'undefined') {
+      throw new Error('Data is not defined');
+    }
+
+    // Получаем путь к каталогу
+    const directoryPath = path.dirname(filePath);
+
+    // Проверяем, существует ли каталог, если нет - создаем
+    await fs.mkdir(directoryPath, { recursive: true });
+
+    // Записываем данные в файл
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+
+    console.log(`Data has been written to ${filePath}`);
+  } catch (error: any) {
+    console.error(`Error writing data to ${filePath}: ${error.message}`);
+    throw error;
+  }
 };
 
 generateAndWriteData();

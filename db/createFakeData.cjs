@@ -36,8 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var fs = require("fs/promises");
+var path = require("path");
 var shortid = require("shortid");
-var writeDataToFile_1 = require("./writeDataToFile");
 var accounts = [];
 var profiles = [];
 var campaigns = [];
@@ -147,12 +148,42 @@ var generateAndWriteData = function () { return __awaiter(void 0, void 0, void 0
                 dataToWrite = {
                     accounts: accounts,
                     profiles: profiles,
-                    campaigns: campaigns,
+                    campaigns: campaigns
                 };
-                return [4 /*yield*/, (0, writeDataToFile_1.default)(dbFilePath, dataToWrite)];
+                return [4 /*yield*/, writeDataToFile(dbFilePath, dataToWrite)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
+        }
+    });
+}); };
+var writeDataToFile = function (filePath, data) { return __awaiter(void 0, void 0, void 0, function () {
+    var directoryPath, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                if (typeof data === 'undefined') {
+                    throw new Error('Data is not defined');
+                }
+                directoryPath = path.dirname(filePath);
+                // Проверяем, существует ли каталог, если нет - создаем
+                return [4 /*yield*/, fs.mkdir(directoryPath, { recursive: true })];
+            case 1:
+                // Проверяем, существует ли каталог, если нет - создаем
+                _a.sent();
+                // Записываем данные в файл
+                return [4 /*yield*/, fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8')];
+            case 2:
+                // Записываем данные в файл
+                _a.sent();
+                console.log("Data has been written to ".concat(filePath));
+                return [3 /*break*/, 4];
+            case 3:
+                error_1 = _a.sent();
+                console.error("Error writing data to ".concat(filePath, ": ").concat(error_1.message));
+                throw error_1;
+            case 4: return [2 /*return*/];
         }
     });
 }); };
