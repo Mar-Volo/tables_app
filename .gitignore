@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+./db/*.cjs
+./db/db.json
+./src/interfaces/*.js

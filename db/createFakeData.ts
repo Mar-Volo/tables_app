@@ -177,10 +177,5 @@ generateAndWriteData();
 
 
 
-  // "generate": "tsc ./db/createFakeData.ts && node ./db/createFakeData.cjs && json-server ./db/db.json"
-  // "serve": "concurrently \"json-server ./db/db.json\" \"vite preview\"",
-
-
-
 
 

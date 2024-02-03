@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
+import { getAccounts } from "../fakeApi/fakeApi";
 import AccountsTable from "../components/AccountsTable/AccountsTable";
 import Container from "../components/Container/Container";
 import { Account } from "../interfaces/types";
 
-
-
 const AccountsPage: React.FC = () => {
-    const [accounts, setAccounts] = useState<Account[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
 
   useEffect(() => {
-    
+    const fetchAccounts = async () => {
+      const response = await getAccounts();
+      if (response.length !== 0) {
+        setAccounts(response);
+      }
+    };
+    fetchAccounts();
   }, []);
 
   return (
