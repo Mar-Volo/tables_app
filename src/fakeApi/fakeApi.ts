@@ -1,36 +1,69 @@
 import axios, { AxiosResponse } from "axios";
-import { Account, Profile } from "../interfaces/types";
+import { Account, Profile, Campaign } from "../interfaces/types";
 
-const BASE_URL = "http://localhost:3000/accounts";
+const BASE_URL = "http://localhost:3000/";
 
-export async function getAccounts(): Promise<Account[]> {
+// export async function getAccounts(
+//   min: number,
+//   max: number
+// ): Promise<Account[]> {
+//   try {
+
+//     const responseSlice: AxiosResponse<Account[]> = await axios.get(
+//       `${BASE_URL}accounts?_start=${min}&_end=${max}`
+//     );
+//     const dataToWrite = responseSlice.data;
+//     const allResponse = await axios.get(`${BASE_URL}accounts`)
+//     const allDataLength = allResponse.data.length;
+//     return  {dataToWrite, allDataLength};
+//   } catch (error) {
+//     console.error("Error fetching accounts:", error);
+//     throw error;
+//   }
+// }
+export async function getAccounts(
+  min: number,
+  max: number
+): Promise<{ dataToWrite: Account[]; allDataLength: number }> {
   try {
-    const response: AxiosResponse<Account[]> = await axios.get(BASE_URL);
-    return response.data;
+    const responseSlice: AxiosResponse<Account[]> = await axios.get(
+      `${BASE_URL}accounts?_start=${min}&_end=${max}`
+    );
+    const dataToWrite = responseSlice.data;
+    const allResponse = await axios.get(`${BASE_URL}accounts`);
+    const allDataLength = allResponse.data.length;
+    return { dataToWrite, allDataLength };
   } catch (error) {
     console.error("Error fetching accounts:", error);
-    throw error; // Лучше прокидывать ошибку, чтобы ее можно было обработать выше
+    throw error;
   }
 }
 
-export async function getProfiles(accountId: string): Promise<Profile[]> {
+export async function getProfiles(accountId?: string): Promise<Profile[]> {
   try {
     const response: AxiosResponse<Profile[]> = await axios.get(
-      { BASE_URL } + accountId
+      `${BASE_URL}profiles?account_id=${accountId}`
     );
-
-    return response.data;
+    const { data } = response;
+    return data;
   } catch (error) {
-    console.error("Error fetching accounts:", error);
-    throw error; // Лучше прокидывать ошибку, чтобы ее можно было обработать выше
+    console.error("Error fetching profiles:", error);
+    throw error;
   }
 }
 
-// import { fakeAccountsArr, fakeProfilesArr } from "../../db/createFakeData";
-
-// export function getAccounts(): Promise<Account[]> { return Promise.resolve(fakeAccountsArr)};
-// export function getAccountProfiles(accountId: string): Promise<ProfileWithAccount[]> {
-//     const profiles = fakeProfilesArr.filter(p => p.account_id === accountId);
-//     console.log(fakeProfilesArr);
-//     return Promise.resolve(profiles);
-// }
+export async function getCampaigns(
+  accountId?: string,
+  profileId?: string
+): Promise<Campaign[]> {
+  try {
+    const response: AxiosResponse<Campaign[]> = await axios.get(
+      `${BASE_URL}campaigns?account_id=${accountId}&profile_id=${profileId}`
+    );
+    const { data } = response;
+    return data;
+  } catch (error) {
+    console.error("Error fetching campaigns:", error);
+    throw error;
+  }
+}

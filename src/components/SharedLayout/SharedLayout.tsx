@@ -18,14 +18,6 @@ const SharedLayout: React.FC = () => {
           <NavLink className="nav_link" to="/accounts">
             Accounts
           </NavLink>
-
-          {/* <NavLink className="nav_link" to="/accounts/:accountId">
-            Profiles
-          </NavLink>
-
-          <NavLink className="nav_link" to="/accounts/:accountId/:profileId">
-            Campaigns
-          </NavLink> */}
         </Container>
       </Header>
       <Suspense

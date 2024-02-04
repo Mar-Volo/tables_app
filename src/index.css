@@ -139,9 +139,17 @@ td {
   padding: 0 !important;
 }
 
+
 .accounts__row {
   cursor: pointer;
 }
+
+.pagination__nav {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
 .table__link {
   width: inherit;
   height: inherit;
