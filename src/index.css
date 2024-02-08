@@ -163,17 +163,18 @@ td {
 .backLink {
   width: 100px;
   font-weight: 600;
-  color: rgb(33 79 151);
+  color: var(--bs-link-color);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border: 2px solid rgb(33 79 151);
+  border: 2px solid var(--bs-link-color);
   border-radius: 25px;
   transition: all 250ms;
   margin-bottom: 30px;
   &:hover {
-    background-color: rgb(33 79 151);
+    /* background-color: rgb(33 79 151); */
+    background-color: var(--bs-link-color);
     color: white;
   }
 }

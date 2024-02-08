@@ -22,4 +22,12 @@ export interface Campaign {
   date: string;
 }
 
+export interface PaginationProps {
+  dataCount: number;
+  dataToWriteCount: number;
+  className: string;
+  handleClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  pageClick: (page: number) => void;
+}
+
 

@@ -1,5 +1,6 @@
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useState, useEffect } from "react";
+// import {useLocation} from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getProfiles } from "../fakeApi/fakeApi";
 import { Link } from "react-router-dom";
@@ -11,6 +12,8 @@ import { Profile } from "../interfaces/types";
 const ProfilePage: React.FC = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const { accountId } = useParams<{ accountId: string }>();
+  // const location = useLocation();
+  // const params = useParams();
   useEffect(() => {
    const fetchProfiles = async () => {
     const response = await getProfiles(accountId);
@@ -20,6 +23,7 @@ const ProfilePage: React.FC = () => {
    }
    fetchProfiles();
   }, [accountId]); 
+  // console.log(params);
   return (
     <main>
       <Container className="container">

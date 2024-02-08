@@ -13,7 +13,7 @@ const CampaignsPage: React.FC = () => {
     profileId: string;
     accountId: string;
   }>();
-
+// const params = useParams()
   useEffect(() => {
     const fetchProfiles = async () => {
       const response = await getCampaigns(accountId, profileId);
@@ -23,7 +23,7 @@ const CampaignsPage: React.FC = () => {
     };
     fetchProfiles();
   }, [accountId, profileId]);
-
+// console.log(params);
   return (
     <main>
       <Container className="container">
